@@ -6,11 +6,10 @@ const app = next({ dev })
 const handle = app.getRequestHandler()
 
 
-
-
   app.prepare()
   .then(async () => {
     const server = express()
+    const test;
 
     server.get('/p/:id', (req, res) => {
       const actualPage = '/post'
