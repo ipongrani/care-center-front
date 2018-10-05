@@ -18,6 +18,12 @@ const handle = app.getRequestHandler()
       app.render(req, res, actualPage, queryParams)
     })
 
+    server.get('/Registration', (req, res) => {
+      const actualPage = '/form'
+      //const queryParams = { fType: req.params.fType }
+      app.render(req, res, actualPage)
+    })
+
     server.get('*', (req, res) => {
       return handle(req, res)
     })

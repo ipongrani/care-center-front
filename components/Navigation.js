@@ -122,20 +122,22 @@ export default class Example extends React.Component {
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link as={"Login"} href={"/form?fType=login"}>
+                  <Link as={"/Login"} href={"/form"}>
                     <DropdownItem className="dList">
                       <a>Login</a>
                     </DropdownItem>
                   </Link>
-                  <Link as={"Registration"} href={"/form?fType=register"}>
+                  <Link as={'/Registration'} href={'/form'}>
                     <DropdownItem className="dList">
                       <a>SignUp</a>
                     </DropdownItem>
                   </Link>
                   <DropdownItem divider />
-                  <DropdownItem>
+
+                  <DropdownItem className="dList">
                     FAQ
                   </DropdownItem>
+
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
