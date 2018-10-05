@@ -1,4 +1,4 @@
-import Layout from '../components/layouts/Layout_Basic.js'
+import Layout from '../components/layouts/Layout_Basic'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 

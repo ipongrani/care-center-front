@@ -28,7 +28,6 @@ let Container = Styled.div`
  .navbar {
    background-color: rgb(63, 52, 119); //rgb(68, 41, 206);
 
-
    //NavbarBrand
     .navbar-brand {
       color: rgb(247, 218, 34);
@@ -38,22 +37,47 @@ let Container = Styled.div`
 
    //NavbarToggler
     .navbar-toggler {
-      background-color: rgb(84, 65, 145);
+      background-color: rgb(247, 218, 34); //rgb(84, 65, 145);
     }
    //------
 
 
    //NavItem
     .nav-item a {
-      color: rgb(247, 218, 34) !important;
+      color: rgb(247, 218, 34);
       text-decoration: none;
+    }
+
+    .toggle {
+      color: rgb(247, 218, 34);
+      background-color: rgb(86, 46, 137);
+      border: none;
+
+      &:focus {
+        box-shadow: none;
+        background-color: rgb(86, 46, 137);
+      }
     }
    //------
 
-   //DropdownMenu
-     .dropdown-menu button {
-       color: black !important;
-     }
+
+   //NavLink
+    div .navLink {
+      width: 100px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dList {
+      cursor: pointer;
+
+      a {
+        color: black !important;
+      }
+
+    }
    //------
 
  }
@@ -81,28 +105,32 @@ export default class Example extends React.Component {
   render() {
     return (
       <Container>
-        <Navbar expand="md">
+        <Navbar light expand="md">
           <NavbarBrand href="/">Blue Care Services</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Link as={"/rani"} href="/something"><a>Something</a></Link></NavLink>
+                <div className="navLink"><Link as={"/rani"} href="/something"><a>Something</a></Link></div>
               </NavItem>
               <NavItem>
-                <NavLink><Link as={"/tester"} href="https://www.google.com/"><a>Something</a></Link></NavLink>
+                <div className="navLink"><Link as={"/tester"} href="https://www.google.com/"><a>Something</a></Link></div>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
+                <DropdownToggle className="toggle"  caret>
                   Options
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>
-                    <Link as={"Login"} href={"/form?fType=login"}><a className="dList">Login</a></Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link as={"Registration"} href={"/form?fType=register"}><a className="dList">SignUp</a></Link>
-                  </DropdownItem>
+                  <Link as={"Login"} href={"/form?fType=login"}>
+                    <DropdownItem className="dList">
+                      <a>Login</a>
+                    </DropdownItem>
+                  </Link>
+                  <Link as={"Registration"} href={"/form?fType=register"}>
+                    <DropdownItem className="dList">
+                      <a>SignUp</a>
+                    </DropdownItem>
+                  </Link>
                   <DropdownItem divider />
                   <DropdownItem>
                     FAQ

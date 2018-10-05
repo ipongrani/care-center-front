@@ -15,6 +15,10 @@ let Container = Styled.div`
   justify-content: center;
   align-items: center;
 
+  h1 {
+    margin: 5px 0 25px 0;
+  }
+
   .CardCont {
     height: 100%;
     width: 600px;
@@ -23,6 +27,23 @@ let Container = Styled.div`
   .CardMain {
     height: auto;
     width: 600px;
+  }
+
+  .topOp {
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .btnSub {
+
+    margin: 45px 0 15px 0;
+
+    &:hover{
+      cursor: pointer;
+      background-color: rgb(70, 110, 175);
+      color: white;
+    }
   }
 `;
 
@@ -34,19 +55,18 @@ export default class FormPage extends React.Component {
 /////////////////////////////////////////////// Statics ////////////////////////////////////////////////////////
 
 
-
-
 state = {
-  name: '',
-  address: '',
-  email: '',
-  password: '',
+  Name: '',
+  Address: '',
+  Email: '',
+  Password: '',
   activeTab: '1'
 }
 
 
 // Form Fileds
-  Customer = [{ name: "Name",
+  Customer = [
+              { name: "Name",
                 type: "text",
                 id: "fName",
                 placeholder: "Name"},
@@ -62,23 +82,27 @@ state = {
                 type: "password",
                 id: "fPassword",
                 placeholder: "Password"},
+              { name: "Submit",
+                type: "submit",
+                id: "fSubmit"},
               ]
 
-  Client = [{ name: "Facility_Name",
+  Client = [
+              { name: "Facility_Name",
                 type: "text",
-                id: "fName",
+                id: "fFName",
                 placeholder: "Facility Name"},
               { name: "Facility_Address",
                 type: "text",
-                id: "fAddress",
+                id: "fFAddress",
                 placeholder: "Facility Address"},
               { name: "Email",
                 type: "email",
-                id: "fEmail",
+                id: "fFEmail",
                 placeholder: "Email"},
               { name: "Password",
                 type: "password",
-                id: "fPassword",
+                id: "fFPassword",
                 placeholder: "Password"},
               ]
 //------End
@@ -92,10 +116,17 @@ state = {
 
 
 //FormGroup
-  F = (data) => data.map((d) =>
-                    <FormGroup>
-                      <Label for={d['name']}>{d['name'].replace(/_/g,' ')}</Label>
-                      <Input type={d['type']} name={d['name']} id={d['id']} placeholder={d['placeholder']} />
+  F = (data) => data.map((d,i) =>
+                    <FormGroup key={i} >
+                      {
+                        d['type'] === "submit" ?
+                        <Input type={d['type']} className="btnSub" onSubmit={this.HandleSubmit} name={d['name']} id={d['id']} value={this.state[d['name']]} />
+                        :
+                        <div>
+                         <Label for={d['name']}>{d['name'].replace(/_/g,' ')}</Label>
+                         <Input type={d['type']} onChange={this.HandleChange} name={d['name']} id={d['id']} placeholder={d['placeholder']} value={this.state[d['name']]} />
+                        </div>
+                      }
                     </FormGroup>
                   );
 //------End
@@ -109,6 +140,20 @@ state = {
      });
    }
  }
+
+  HandleChange = (e) => {
+    e.preventDefault();
+
+    console.log(e.target['name']);
+    this.setState({[e.target['name']]: e.target['value']});
+  }
+
+  HandleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(e.target['name']);
+
+  }
 //------End
 
 
@@ -117,9 +162,7 @@ state = {
 
   render() {
 
-    const { Customer, Client } = this;
-
-    console.log(Customer)
+    const { Customer, Client, F } = this;
 
     return (
       <Layout>
@@ -130,18 +173,18 @@ state = {
               <Nav tabs>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === '1' })}
-                  onClick={() => { this.toggle('1'); }}
-                >
+                  className={classnames({ active: this.state.activeTab === '1', topOp: true})}
+                  onClick={() => { this.toggle('1'); }}>
+
                   Member
 
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === '2' })}
-                  onClick={() => { this.toggle('2'); }}
-                >
+                  className={classnames({ active: this.state.activeTab === '2', topOp: true})}
+                  onClick={() => { this.toggle('2'); }}>
+
                   Facility
 
                 </NavLink>

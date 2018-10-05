@@ -5,32 +5,41 @@ import Styled from 'styled-components'
 
 
 
-let Container = Styled.div`
+let MainCont = Styled.div`
 
-  padding-top: 60px
+//Inner-Block
+    .Inner-Block {
+      padding: 65px 10px 5px 10px;
+      min-height: 100vh;
+    }
+//------
 
-  //Inner Block
-  .Inner-Block {
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid #DDD;
-    min-height: 100vh;
-  }
-  //------
+
+//Inner-Block
+    .Child-Cont {
+      padding: 25px 10px 30px 10px;
+      min-height: 600px;
+      box-shadow: 0 0 1.5px 1px rgb(70, 53, 86);
+    }
+//------
+
 `;
 
 
 const Layout = (props) => (
 
-  <Container>
-    <Head />
-    <Navigation />
-    <div className="Inner-Block">
+          <MainCont>
 
-      {props.children}
+              <Head />
+              <Navigation />
+              <div className="Inner-Block">
+                <div className="Child-Cont">
+                  {props.children}
+                </div>
+              </div>
 
-    </div>
-  </Container>
+          </MainCont>
+
 )
 
 export default Layout
