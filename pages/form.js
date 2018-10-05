@@ -2,9 +2,13 @@ import React from 'react'
 import Layout from '../components/layouts/Layout_Basic.js'
 import Styled from 'styled-components'
 import fetch from 'isomorphic-unfetch'
+import axios from 'axios'
 import classnames from 'classnames';
 import { Button, Form, FormGroup, Label, Input, FormText, Card, CardBody,
          TabContent, TabPane, Nav, NavItem, NavLink, CardTitle, CardText, Row, Col } from 'reactstrap'
+
+
+
 
 
 let Container = Styled.div`
@@ -60,6 +64,10 @@ state = {
   Address: '',
   Email: '',
   Password: '',
+  Facility_Name: '',
+  Facility_Address: '',
+  Account_Emai: '',
+  Account_Password: '',
   activeTab: '1'
 }
 
@@ -82,6 +90,10 @@ state = {
                 type: "password",
                 id: "fPassword",
                 placeholder: "Password"},
+              { name: "something",
+                type: "textarea",
+                id: "fSomething",
+                placeholder: "something"},
               { name: "Submit",
                 type: "submit",
                 id: "fSubmit"},
@@ -96,11 +108,11 @@ state = {
                 type: "text",
                 id: "fFAddress",
                 placeholder: "Facility Address"},
-              { name: "Email",
+              { name: "Account_Email",
                 type: "email",
                 id: "fFEmail",
                 placeholder: "Email"},
-              { name: "Password",
+              { name: "Account_Password",
                 type: "password",
                 id: "fFPassword",
                 placeholder: "Password"},
@@ -114,17 +126,16 @@ state = {
 
 
 
-
 //FormGroup
   F = (data) => data.map((d,i) =>
                     <FormGroup key={i} >
                       {
                         d['type'] === "submit" ?
-                        <Input type={d['type']} className="btnSub" onSubmit={this.HandleSubmit} name={d['name']} id={d['id']} value={this.state[d['name']]} />
+                        <Input key={i} type={d['type']} className="btnSub" onSubmit={this.HandleSubmit} name={d['name']} id={d['id']} value={this.state[d['name']]} />
                         :
                         <div>
                          <Label for={d['name']}>{d['name'].replace(/_/g,' ')}</Label>
-                         <Input type={d['type']} onChange={this.HandleChange} name={d['name']} id={d['id']} placeholder={d['placeholder']} value={this.state[d['name']]} />
+                         <Input key={i} type={d['type']} onChange={this.HandleChange} name={d['name']} id={d['id']} placeholder={d['placeholder']} value={this.state[d['name']]} />
                         </div>
                       }
                     </FormGroup>
@@ -140,19 +151,40 @@ state = {
      });
    }
  }
+//------
 
+//change
   HandleChange = (e) => {
     e.preventDefault();
-
     console.log(e.target['name']);
     this.setState({[e.target['name']]: e.target['value']});
   }
+//-----
 
+//Submit
   HandleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(e.target['name']);
-
+    console.log(e.target);
+    let d = new FormData(e.target);
+    console.log(d);
+    console.log("name: ", d.get("Name"));
+    for (let i of d.entries()){
+      console.log(i)
+    }
+/*
+    axios({
+       method: 'post',
+       url: `http://care-center-bck-layer1.herokuapp.com/care-center/Registration?action=nM`,
+       data: {
+         name: req.body.name,
+         address: req.body.address,
+         email: req.body.email,
+         password: req.body.password
+       }
+  }).then((r) => res.send(r.data))
+  .catch((err) => res.send(err.response.data))
+*/
   }
 //------End
 
@@ -195,7 +227,7 @@ state = {
 
                 <Card className="CardCont">
                   <CardBody>
-                    <Form>
+                    <Form onSubmit={this.HandleSubmit}>
                      { F(Customer) }
                     </Form>
                   </CardBody>
