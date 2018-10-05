@@ -18,6 +18,12 @@ import Link from 'next/link';
 
 let Container = Styled.div`
 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
 //Navbar
  .navbar {
    background-color: rgb(63, 52, 119); //rgb(68, 41, 206);
@@ -92,10 +98,10 @@ export default class Example extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <Link as={"Login"} href={"/form"}><a className="dList">Login</a></Link>
+                    <Link as={"Login"} href={"/form?fType=login"}><a className="dList">Login</a></Link>
                   </DropdownItem>
                   <DropdownItem>
-                    Signup
+                    <Link as={"Registration"} href={"/form?fType=register"}><a className="dList">SignUp</a></Link>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
