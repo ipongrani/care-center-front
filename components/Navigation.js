@@ -50,11 +50,12 @@ let Container = Styled.div`
 
     .toggle {
       color: rgb(247, 218, 34);
-      background-color: rgb(86, 46, 137);
+      background-color: transparent;
       border: none;
 
       &:focus {
-        box-shadow: none;
+        box-shadow: 0 0 1.5px 1px rgb(247, 218, 34) !important;
+        color: rgb(247, 218, 34);
         background-color: rgb(86, 46, 137);
       }
     }
